@@ -1,0 +1,13 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.content {
+  background: url('@/assets/images/bg.png');
+  background-color: #AC5412;
+  background-blend-mode: hard-light;
+  height: 100svh;
+  overflow: hidden;
+}
