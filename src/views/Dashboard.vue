@@ -59,7 +59,7 @@
         <div class="list-lady">
           <div
               @click="$router.push({ name: 'detail', params: { id: item.id }})"
-              v-for="(item, index) in dataWomen.slice(3, dataWomen.length - 1)"
+              v-for="item in dataWomen.slice(3, dataWomen.length - 1)"
               class="lady"
           >
             <div class="info">

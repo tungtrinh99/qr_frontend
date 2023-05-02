@@ -22,7 +22,7 @@
             <div class="message-text">
               <div class="message-text-top">
                 <div class="message-name">{{ message.user_id }}</div>
-                <div class="message-time">{{ $moment(message.createdAt).format('hh:mm A') }}</div>
+                <div class="message-time">{{ formatDate(message.createdAt) }}</div>
               </div>
               <div class="message-text-bottom">
                 <div class="message-content">
@@ -51,7 +51,7 @@ import {formatFullname} from "@/utils/format";
 
 const route = useRoute();
 const woman: Ref<Woman | null> = ref(null);
-const womanId: ComputedRef<number> = computed(() => route.params.id);
+const womanId: ComputedRef<number | string | string[]> = computed(() => route.params.id);
 const messages: Ref<Array<Message>> = ref([]);
 const fetchWoman = async () => {
   try {
@@ -77,6 +77,11 @@ const fetchMessages = async () => {
 };
 fetchWoman();
 fetchMessages();
+
+const formatDate = (date: string) => {
+  // return this.$moment(date).format('hh:mm A') ?? ''
+  return date;
+}
 </script>
 <style lang="css" scoped>
 .content {
