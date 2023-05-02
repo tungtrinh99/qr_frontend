@@ -1,4 +1,4 @@
-const formatFullname = (firstName: string, lastName: string): string => {
+const formatFullname = (firstName: string | undefined, lastName: string | undefined): string => {
     return firstName + ' ' + lastName;
 }
 
