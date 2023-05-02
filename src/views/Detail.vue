@@ -8,137 +8,25 @@
         </div>
         <div class="detail-info">
           <img class="detail-avatar" src="@/assets/svgs/nhi.jpg" alt="">
-          <div class="name">Trương Yến Nhi</div>
+          <div class="name">{{ formatFullname(woman?.firstName, woman?.lastName) }}</div>
         </div>
       </div>
       <div class="body">
         <div class="list-message">
-          <div class="message">
+          <div
+              v-for="message in messages"
+              class="message">
             <div class="message-avt">
               <img src="@/assets/svgs/avt_detail.svg" alt="">
             </div>
             <div class="message-text">
               <div class="message-text-top">
-                <div class="message-name">Trịnh Xuân Tùng</div>
-                <div class="message-time">9:40 AM</div>
+                <div class="message-name">{{ message.user_id }}</div>
+                <div class="message-time">{{ $moment(message.createdAt).format('hh:mm A') }}</div>
               </div>
               <div class="message-text-bottom">
                 <div class="message-content">
-                  Chúc em một ngày 8/3 vui vẻ, tràn đầy niềm vui trong cuộc sống...
-                  Chúc em một ngày 8/3 vui vẻ, tràn đầy niềm vui trong cuộc sống...
-                  Chúc em một ngày 8/3 vui vẻ, tràn đầy niềm vui trong cuộc sống...
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="message">
-            <div class="message-avt">
-              <img src="@/assets/svgs/avt_detail.svg" alt="">
-            </div>
-            <div class="message-text">
-              <div class="message-text-top">
-                <div class="message-name">Trịnh Xuân Tùng</div>
-                <div class="message-time">9:40 AM</div>
-              </div>
-              <div class="message-text-bottom">
-                <div class="message-content">
-                  Chúc em một ngày 8/3 vui vẻ, tràn đầy niềm vui trong cuộc sống...
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="message">
-            <div class="message-avt">
-              <img src="@/assets/svgs/avt_detail.svg" alt="">
-            </div>
-            <div class="message-text">
-              <div class="message-text-top">
-                <div class="message-name">Trịnh Xuân Tùng</div>
-                <div class="message-time">9:40 AM</div>
-              </div>
-              <div class="message-text-bottom">
-                <div class="message-content">
-                  Chúc em một ngày 8/3 vui vẻ, tràn đầy niềm vui trong cuộc sống...
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="message">
-            <div class="message-avt">
-              <img src="@/assets/svgs/avt_detail.svg" alt="">
-            </div>
-            <div class="message-text">
-              <div class="message-text-top">
-                <div class="message-name">Trịnh Xuân Tùng</div>
-                <div class="message-time">9:40 AM</div>
-              </div>
-              <div class="message-text-bottom">
-                <div class="message-content">
-                  Chúc em một ngày 8/3 vui vẻ, tràn đầy niềm vui trong cuộc sống...
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="message">
-            <div class="message-avt">
-              <img src="@/assets/svgs/avt_detail.svg" alt="">
-            </div>
-            <div class="message-text">
-              <div class="message-text-top">
-                <div class="message-name">Trịnh Xuân Tùng</div>
-                <div class="message-time">9:40 AM</div>
-              </div>
-              <div class="message-text-bottom">
-                <div class="message-content">
-                  Chúc em một ngày 8/3 vui vẻ, tràn đầy niềm vui trong cuộc sống...
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="message">
-            <div class="message-avt">
-              <img src="@/assets/svgs/avt_detail.svg" alt="">
-            </div>
-            <div class="message-text">
-              <div class="message-text-top">
-                <div class="message-name">Trịnh Xuân Tùng</div>
-                <div class="message-time">9:40 AM</div>
-              </div>
-              <div class="message-text-bottom">
-                <div class="message-content">
-                  Chúc em một ngày 8/3 vui vẻ, tràn đầy niềm vui trong cuộc sống...
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="message">
-            <div class="message-avt">
-              <img src="@/assets/svgs/avt_detail.svg" alt="">
-            </div>
-            <div class="message-text">
-              <div class="message-text-top">
-                <div class="message-name">Trịnh Xuân Tùng</div>
-                <div class="message-time">9:40 AM</div>
-              </div>
-              <div class="message-text-bottom">
-                <div class="message-content">
-                  Chúc em một ngày 8/3 vui vẻ, tràn đầy niềm vui trong cuộc sống...
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="message">
-            <div class="message-avt">
-              <img src="@/assets/svgs/avt_detail.svg" alt="">
-            </div>
-            <div class="message-text">
-              <div class="message-text-top">
-                <div class="message-name">Trịnh Xuân Tùng</div>
-                <div class="message-time">9:40 AM</div>
-              </div>
-              <div class="message-text-bottom">
-                <div class="message-content">
-                  Chúc em một ngày 8/3 vui vẻ, tràn đầy niềm vui trong cuộc sống...
+                  {{ message.message }}
                 </div>
               </div>
             </div>
@@ -154,6 +42,42 @@
     </div>
   </div>
 </template>
+<script lang="ts" setup>
+import {computed, ComputedRef, ref, Ref} from "vue";
+import {Woman, Message} from "@/types";
+import {useRoute} from "vue-router";
+import axios from "@/plugins/axios";
+import {formatFullname} from "@/utils/format";
+
+const route = useRoute();
+const woman: Ref<Woman | null> = ref(null);
+const womanId: ComputedRef<number> = computed(() => route.params.id);
+const messages: Ref<Array<Message>> = ref([]);
+const fetchWoman = async () => {
+  try {
+    const data = await axios.get(`/women/${womanId.value}`);
+    if (data) {
+      woman.value = data.data;
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const fetchMessages = async () => {
+  try {
+    const data = await axios.get('/messages?woman_id=' + womanId.value);
+    if (data) {
+      messages.value = data.data.items;
+      console.log(messages.value);
+    }
+  } catch (err) {
+    console.log(err)
+  }
+};
+fetchWoman();
+fetchMessages();
+</script>
 <style lang="css" scoped>
 .content {
   padding: 0 12px;
