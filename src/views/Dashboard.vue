@@ -12,7 +12,7 @@
       </div>
       <div class="body">
         <div class="leader-boarding">
-          <div class="top top2">
+          <div @click="$router.push({name: 'detail', params: {id: dataWomen[1].id}})" class="top top2">
             <div class="avatar">
               <img class="avt" src="../assets/images/nhi.jpg" alt="">
               <div class="number">
@@ -21,12 +21,12 @@
               </div>
             </div>
             <div class="info">
-              <div class="name">Trương Yến NhiTrương Yến Nhi</div>
-              <div class="vote-quantity">2312</div>
-              <div class="user-name">@nhi.truong</div>
+              <div class="name">{{ formatFullname(dataWomen[1]?.firstName, dataWomen[1]?.lastName) }}</div>
+              <div class="vote-quantity">{{ dataWomen[1]?.messageCount }}</div>
+              <div class="user-name">@{{ dataWomen[1]?.username }}</div>
             </div>
           </div>
-          <div class="top top1">
+          <div @click="$router.push({name: 'detail', params: {id: dataWomen[0].id}})" class="top top1">
             <div class="avatar">
               <img class="crown" src="@/assets/svgs/ic_crown.svg" alt="">
               <img class="avt" src="../assets/images/nhi.jpg" alt="">
@@ -36,12 +36,12 @@
               </div>
             </div>
             <div class="info">
-              <div class="name">Trương Yến Nhi</div>
-              <div class="vote-quantity">2312</div>
-              <div class="user-name">@nhi.truong</div>
+              <div class="name">{{ formatFullname(dataWomen[0]?.firstName, dataWomen[0]?.lastName) }}</div>
+              <div class="vote-quantity">{{ dataWomen[0]?.messageCount }}</div>
+              <div class="user-name">@{{ dataWomen[0]?.username }}</div>
             </div>
           </div>
-          <div class="top top3">
+          <div @click="$router.push({name: 'detail', params: {id: dataWomen[2].id}})" class="top top3">
             <div class="avatar">
               <img class="avt" src="../assets/images/nhi.jpg" alt="">
               <div class="number">
@@ -50,28 +50,28 @@
               </div>
             </div>
             <div class="info">
-              <div class="name">Trương Yến Nhi</div>
-              <div class="vote-quantity">2312</div>
-              <div class="user-name">@nhi.truong</div>
+              <div class="name">{{ formatFullname(dataWomen[2]?.firstName, dataWomen[2]?.lastName) }}</div>
+              <div class="vote-quantity">{{ dataWomen[2]?.messageCount }}</div>
+              <div class="user-name">@{{ dataWomen[2]?.username }}</div>
             </div>
           </div>
         </div>
         <div class="list-lady">
           <div
-              @click="$router.push({ name: 'detail', params: { id: index + 1 }})"
-              v-for="(item, index) in 10"
+              @click="$router.push({ name: 'detail', params: { id: item.id }})"
+              v-for="(item, index) in dataWomen.slice(3, dataWomen.length - 1)"
               class="lady"
           >
             <div class="info">
               <img src="@/assets/svgs/avt_4.svg" alt="">
               <div class="wrap-text">
-                <div class="name">Trương Yến Nhi {{ index }}</div>
-                <div class="user-name">@nhi.truong</div>
+                <div class="name">{{ formatFullname(item.firstName, item.lastName) }}</div>
+                <div class="user-name">@{{ item.username }}</div>
               </div>
             </div>
             <div class="vote-quantity">
               <img src="@/assets/svgs/ic_message.svg" alt="">
-              1124
+              {{ item.messageCount }}
             </div>
           </div>
         </div>
@@ -80,6 +80,25 @@
     </div>
   </div>
 </template>
+<script lang="ts" setup>
+import {ref, Ref} from "vue";
+import axios from "@/plugins/axios";
+import {Woman} from "@/types";
+import {formatFullname} from "@/utils/format";
+
+const dataWomen: Ref<Array<Woman>> = ref([]);
+const fetchData = async () => {
+  try {
+    const data = await axios.get('women');
+    if (data) {
+      dataWomen.value = data.data.items;
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+fetchData();
+</script>
 <style lang="css" scoped>
 .content {
   padding: 0 24px;
