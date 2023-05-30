@@ -51,7 +51,7 @@ import {formatFullname} from "@/utils/format";
 
 const route = useRoute();
 const woman: Ref<Woman | null> = ref(null);
-const womanId: ComputedRef<number | string | string[]> = computed(() => route.params.id);
+const womanId: ComputedRef<string | string[]> = computed(() => route.params.id);
 const messages: Ref<Array<Message>> = ref([]);
 const fetchWoman = async () => {
   try {
@@ -79,7 +79,6 @@ fetchWoman();
 fetchMessages();
 
 const formatDate = (date: string) => {
-  // return this.$moment(date).format('hh:mm A') ?? ''
   return date;
 }
 </script>
