@@ -91,7 +91,7 @@ const fetchData = async () => {
   try {
     const data = await axios.get('women');
     if (data) {
-      dataWomen.value = data.data.items;
+      dataWomen.value = data.data;
     }
   } catch (error) {
     console.log(error)
