@@ -14,7 +14,7 @@
         <div class="leader-boarding">
           <div @click="$router.push({name: 'detail', params: {id: dataWomen[1].id}})" class="top top2">
             <div class="avatar">
-              <img class="avt" src="../assets/images/nhi.jpg" alt="">
+              <img class="avt" :src="dataWomen[1]?.avatar" alt="">
               <div class="number">
                 <span>2</span>
                 <img src="@/assets/svgs/number_2.svg" alt="">
@@ -29,7 +29,7 @@
           <div @click="$router.push({name: 'detail', params: {id: dataWomen[0].id}})" class="top top1">
             <div class="avatar">
               <img class="crown" src="@/assets/svgs/ic_crown.svg" alt="">
-              <img class="avt" src="../assets/images/nhi.jpg" alt="">
+              <img class="avt" :src="dataWomen[0]?.avatar" alt="">
               <div class="number">
                 <span>1</span>
                 <img src="@/assets/svgs/number_1.svg" alt="">
@@ -43,7 +43,7 @@
           </div>
           <div @click="$router.push({name: 'detail', params: {id: dataWomen[2].id}})" class="top top3">
             <div class="avatar">
-              <img class="avt" src="../assets/images/nhi.jpg" alt="">
+              <img class="avt" :src="dataWomen[2]?.avatar" alt="">
               <div class="number">
                 <span>3</span>
                 <img src="@/assets/svgs/number_3.svg" alt="">

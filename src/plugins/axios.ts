@@ -1,9 +1,8 @@
 import axios from "axios";
-// require('dotenv').config();
 
-const API_URL = 'https://prisma-postgres-eight.vercel.app/';
-console.log("API_URL", API_URL);
 
+const API_URL = process.env.API_URL;
+console.log(API_URL)
 
 const axiosInstance = axios.create({
     baseURL: API_URL,
@@ -16,6 +15,5 @@ const axiosInstance = axios.create({
         'Content-Type': 'application/json'
     }
 })
-
 
 export default axiosInstance
