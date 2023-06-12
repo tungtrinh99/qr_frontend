@@ -59,11 +59,11 @@
         <div class="list-lady">
           <div
               @click="$router.push({ name: 'detail', params: { id: item.id }})"
-              v-for="item in dataWomen.slice(3, dataWomen.length - 1)"
+              v-for="item in dataWomen.slice(3, dataWomen.length)"
               class="lady"
           >
             <div class="info">
-              <img src="@/assets/svgs/avt_4.svg" alt="">
+              <img :src="item.avatar" alt="">
               <div class="wrap-text">
                 <div class="name">{{ formatFullname(item.firstName, item.lastName) }}</div>
                 <div class="user-name">@{{ item.username }}</div>
@@ -71,7 +71,7 @@
             </div>
             <div class="vote-quantity">
               <img src="@/assets/svgs/ic_message.svg" alt="">
-              {{ item.messageCount }}
+              {{ item._count?.Message }}
             </div>
           </div>
         </div>

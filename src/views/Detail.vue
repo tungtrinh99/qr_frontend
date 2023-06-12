@@ -7,7 +7,7 @@
           <div class="title">Messages</div>
         </div>
         <div class="detail-info">
-          <img class="detail-avatar" src="@/assets/svgs/nhi.jpg" alt="">
+          <img class="detail-avatar" :src="woman?.avatar" alt="">
           <div class="name">{{ formatFullname(woman?.firstName, woman?.lastName) }}</div>
         </div>
       </div>
@@ -35,8 +35,8 @@
       </div>
       <div class="footer">
         <div class="input-message">
-          <input placeholder="Gửi lời chúc đến" class="" type="text">
-          <img src="@/assets/svgs/ic_send.svg" alt="">
+          <input placeholder="Gửi lời chúc đến" v-model="message" class="" type="text">
+          <img @click="sendMessage" src="@/assets/svgs/ic_send.svg" alt="">
         </div>
       </div>
     </div>
@@ -48,11 +48,13 @@ import {Woman, Message} from "@/types";
 import {useRoute} from "vue-router";
 import axios from "@/plugins/axios";
 import {formatFullname} from "@/utils/format";
+import moment from "moment";
 
 const route = useRoute();
 const woman: Ref<Woman | null> = ref(null);
 const womanId: ComputedRef<string | string[]> = computed(() => route.params.id);
 const messages: Ref<Array<Message>> = ref([]);
+const message: Ref<string> = ref("");
 const fetchWoman = async () => {
   try {
     const data = await axios.get(`/women/${womanId.value}`);
@@ -68,18 +70,34 @@ const fetchMessages = async () => {
   try {
     const data = await axios.get('/messages?woman_id=' + womanId.value);
     if (data) {
-      messages.value = data.data.items;
-      console.log(messages.value);
+      messages.value = data.data;
     }
   } catch (err) {
     console.log(err)
   }
 };
+
+const sendMessage = async () => {
+  try {
+    const result = await axios.post('/messages', {
+      woman_id: Number(womanId.value),
+      user_id: 2,
+      message: message.value
+    })
+    if (result) {
+      messages.value.unshift(result.data);
+      message.value = "";
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 fetchWoman();
 fetchMessages();
 
 const formatDate = (date: string) => {
-  return date;
+  return moment(date).format('MM/DD/YYYY hh:mm');;
 }
 </script>
 <style lang="css" scoped>
