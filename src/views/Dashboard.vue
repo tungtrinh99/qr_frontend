@@ -22,7 +22,7 @@
             </div>
             <div class="info">
               <div class="name">{{ formatFullname(dataWomen[1]?.firstName, dataWomen[1]?.lastName) }}</div>
-              <div class="vote-quantity">{{ dataWomen[1]?.messageCount }}</div>
+              <div class="vote-quantity">{{ dataWomen[1]?._count.Message }}</div>
               <div class="user-name">@{{ dataWomen[1]?.username }}</div>
             </div>
           </div>
@@ -37,7 +37,7 @@
             </div>
             <div class="info">
               <div class="name">{{ formatFullname(dataWomen[0]?.firstName, dataWomen[0]?.lastName) }}</div>
-              <div class="vote-quantity">{{ dataWomen[0]?.messageCount }}</div>
+              <div class="vote-quantity">{{ dataWomen[0]?._count.Message }}</div>
               <div class="user-name">@{{ dataWomen[0]?.username }}</div>
             </div>
           </div>
@@ -51,7 +51,7 @@
             </div>
             <div class="info">
               <div class="name">{{ formatFullname(dataWomen[2]?.firstName, dataWomen[2]?.lastName) }}</div>
-              <div class="vote-quantity">{{ dataWomen[2]?.messageCount }}</div>
+              <div class="vote-quantity">{{ dataWomen[2]?._count.Message }}</div>
               <div class="user-name">@{{ dataWomen[2]?.username }}</div>
             </div>
           </div>
