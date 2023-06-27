@@ -68,6 +68,8 @@
         padding: 44px 27px 79px;
         .top {
           .title {
+            display: flex;
+            justify-content: space-between;
             .top-left {
               color: #000;
               font-size: 16px;
@@ -87,10 +89,10 @@
           }
           .subtitle {
             color: #000;
-            textbox-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
             font-size: 40px;
             font-family: Poppins;
-            font-weight: 500;
+            font-weight: 700;
           }
         }
         .social-network-wrapper {
