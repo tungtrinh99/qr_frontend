@@ -17,7 +17,9 @@ const { t: $t } = i18n.global;
 const globalProperties = {
     $moment: moment,
     $axios: axiosInstance,
-    $toast: useToast(),
+    $toast: useToast({
+        position: 'top-right',
+    }),
     $t: $t
 }
 

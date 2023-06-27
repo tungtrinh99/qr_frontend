@@ -1,56 +1,58 @@
 <template>
   <div class="login-page">
-      <div class="container">
-        <div class="background"></div>
-        <div class="content-page">
-          <div class="logo">Your Logo</div>
-          <div class="login-form">
-            <div class="top">
-              <div class="title">
-                <div class="top-left">Welcome to <span>LOREM</span></div>
-                <div class="top-right">
-                  <span>No Account ?</span><br>
-                  <span>Sign up</span>
-                </div>
-              </div>
-              <div class="subtitle">Sign in</div>
-            </div>
-            <div class="social-network-wrapper">
-              <div class="google">
-                <img src="@/assets/svgs/ic_google.svg" alt="">
-                <span>Sign in with Google</span>
-              </div>
-              <div class="facebook">
-                <img src="@/assets/svgs/ic_facebook.svg" alt="">
-              </div>
-              <div class="apple">
-                <img src="@/assets/svgs/ic_apple.svg" alt="">
+    <div class="container">
+      <div class="background"></div>
+      <div class="content-page">
+        <div class="logo">Your Logo</div>
+        <div class="login-form">
+          <div class="top">
+            <div class="title">
+              <div class="top-left">Welcome to <span>QR</span></div>
+              <div class="top-right">
+                <span>No Account ?</span><br>
+                <span style="color: #E48700; cursor: pointer">Sign up</span>
               </div>
             </div>
-            <div class="form">
-              <label for="email">Enter your username or email address</label>
-              <br>
-              <input id="email" type="text" placeholder="Username or email address">
-              <br>
-              <label for="password">Enter your Password</label>
-              <br>
-              <input id="password" type="text" placeholder="Password">
-              <div>Forgot Password</div>
+            <div class="subtitle">Sign in</div>
+          </div>
+          <div class="social-network-wrapper">
+            <div class="google">
+              <img src="@/assets/svgs/ic_google.svg" alt="">
+              <span>Sign in with Google</span>
             </div>
-            <div class="bottom">
-              <div class="button-signup">
-                <button>Sign up</button>
-              </div>
+            <div class="facebook">
+              <img src="@/assets/svgs/ic_facebook.svg" alt="">
+            </div>
+            <div class="apple">
+              <img src="@/assets/svgs/ic_apple.svg" alt="">
+            </div>
+          </div>
+          <div class="form">
+            <label for="email">Enter your username or email address</label>
+            <input id="email" type="text" placeholder="Username or email address">
+            <br>
+            <label for="password">Enter your Password</label>
+            <input id="password" type="text" placeholder="Password">
+            <div class="forgot-password">Forgot Password</div>
+          </div>
+          <div class="bottom">
+            <div class="button-signup">
+              <button>Sign up</button>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </div>
 </template>
+<script lang="ts" setup>
+
+</script>
 <style lang="scss">
 .login-page {
   background: #ECBC76;
   height: 100vh;
+
   .container {
     .content-page {
       .logo {
@@ -58,35 +60,44 @@
         font-size: 18px;
         font-family: Poppins;
         font-weight: 600;
+        padding-top: 16px;
       }
 
       .login-form {
         border-radius: 40px;
         background: #FFF;
-        width: 326px;
+        width: 70%;
         margin: 22px auto 0;
         padding: 44px 27px 79px;
+
         .top {
+          margin-bottom: 62px;
+
           .title {
             display: flex;
             justify-content: space-between;
+
             .top-left {
               color: #000;
               font-size: 16px;
               font-family: Poppins;
+
               span {
                 color: #E48700;
               }
             }
+
             .top-right {
               color: #8D8D8D;
               font-size: 13px;
               font-family: Poppins;
+
               span:nth-child(2) {
                 color: #E48700;
               }
             }
           }
+
           .subtitle {
             color: #000;
             text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
@@ -95,8 +106,11 @@
             font-weight: 700;
           }
         }
+
         .social-network-wrapper {
           display: flex;
+          margin-bottom: 52px;
+
           .google {
             border-radius: 9px;
             background: #FFF4E3;
@@ -106,12 +120,16 @@
             align-items: center;
             justify-content: center;
             margin-right: 10px;
+            cursor: pointer;
+
             span {
               color: #E48700;
               font-size: 12px;
               font-family: Poppins;
+              margin-left: 12px;
             }
           }
+
           .facebook {
             width: 36px;
             height: 55px;
@@ -121,7 +139,9 @@
             border-radius: 9px;
             background: #F2F2F2;
             margin-right: 10px;
+            cursor: pointer;
           }
+
           .apple {
             width: 36px;
             height: 55px;
@@ -130,27 +150,57 @@
             justify-content: center;
             border-radius: 9px;
             background: #F2F2F2;
+            cursor: pointer;
           }
         }
+
         .form {
           label {
             color: #000;
             font-size: 14px;
             font-family: Poppins;
+            margin-bottom: 16px;
+            display: block;
           }
+
           input {
             border-radius: 9px;
             border: 1px solid #E48700;
             background: #FFF;
             width: 100%;
             height: 57px;
-            padding-left: 15px;
+            outline: none;
+            padding: 0;
+
+            &#email {
+              margin-bottom: 38px;
+            }
+
+            &::placeholder {
+              color: #808080;
+              font-size: 13px;
+              font-family: Poppins;
+              font-weight: 300;
+            }
+          }
+
+          .forgot-password {
+            margin-top: 12px;
+            color: #E48700;
+            font-size: 11px;
+            font-family: Poppins;
+            cursor: pointer;
+            display: flex;
+            justify-content: flex-end;
           }
         }
+
         .bottom {
+          margin-top: 47px;
           .button-signup {
             display: flex;
             justify-content: center;
+
             button {
               border-radius: 10px;
               background: #E48700;
@@ -159,7 +209,7 @@
               font-size: 16px;
               font-family: Poppins;
               font-weight: 500;
-              width: 272px;
+              width: 100%;
               height: 54px;
               border: none;
             }
