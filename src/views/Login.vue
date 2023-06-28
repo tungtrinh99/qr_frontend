@@ -2,8 +2,10 @@
   <div class="login-page">
     <div class="container">
       <div class="background"></div>
-      <div class="content-page">
-        <div class="logo">Your Logo</div>
+      <div class="content">
+        <div class="logo">
+          <p>Kiai QR <br><br> Leaderboard</p>
+        </div>
         <div class="login-form">
           <div class="top">
             <div class="title">
@@ -28,16 +30,25 @@
             </div>
           </div>
           <div class="form">
-            <label for="email">Enter your username or email address</label>
-            <input id="email" type="text" placeholder="Username or email address">
-            <br>
-            <label for="password">Enter your Password</label>
-            <input id="password" type="text" placeholder="Password">
+            <div class="input-form">
+              <label for="email">Enter your username or email address</label>
+              <div class="input-wrapper">
+                <input v-model="state.email" class="input-inner" id="email" type="text" placeholder="Username or email address">
+              </div>
+            </div>
+            <div class="input-form">
+              <label for="password">Enter your Password</label>
+              <div class="input-wrapper">
+                <input v-model="state.password" class="input-inner" id="password" type="text" placeholder="Password">
+              </div>
+            </div>
             <div class="forgot-password">Forgot Password</div>
           </div>
           <div class="bottom">
             <div class="button-signup">
-              <button>Sign up</button>
+              <button
+                  @click="login"
+              >Sign in</button>
             </div>
           </div>
         </div>
@@ -46,7 +57,51 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { useAuthStore } from "@/stores/auth";
+import { computed, getCurrentInstance, reactive } from 'vue'
+// import { useVuelidate } from '@vuelidate/core'
+// import { required, email } from '@vuelidate/validators'
+const {
+  proxy
+} = getCurrentInstance() as any
 
+const state = reactive({
+  email: '',
+  password: ''
+})
+// const rules = computed(() => {
+//   return {
+//     email: {
+//       required,
+//       email,
+//       regex: (value: string) => /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(value)
+//     },
+//     password: {
+//       required,
+//       regex: (value: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value)
+//     }
+//   }
+// })
+// const v$ = useVuelidate(rules, state)
+
+const authStore = useAuthStore();
+const login = async () => {
+  // v$.value.$touch();
+  // if (v$.value.$invalid) {
+  //   return;
+  // }
+  // const response = await proxy.$axios.post('/login', {
+  //   email: state.email,
+  //   password: state.password
+  // })
+  // if (!response) {
+  //   proxy.$toast.success(proxy.$t('message.login-success'));
+  //   return;
+  // }
+  // localStorage.setItem('token', response.data.accessToken);
+  // authStore.setToken(response.data.accessToken)
+  proxy.$router.push('/dashboard');
+}
 </script>
 <style lang="scss">
 .login-page {
@@ -54,21 +109,25 @@
   height: 100vh;
 
   .container {
-    .content-page {
+    .content {
+      padding: 0 22px;
       .logo {
-        color: #C6553B;
-        font-size: 18px;
-        font-family: Poppins;
-        font-weight: 600;
-        padding-top: 16px;
+        p {
+          font-style: normal;
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 12px;
+          color: #FFFFFF;
+          margin: 16px 0 16px 0;
+        }
       }
 
       .login-form {
         border-radius: 40px;
         background: #FFF;
-        width: 70%;
-        margin: 22px auto 0;
         padding: 44px 27px 79px;
+        max-width: 326px;
+        margin: 0 auto;
 
         .top {
           margin-bottom: 62px;
@@ -131,7 +190,7 @@
           }
 
           .facebook {
-            width: 36px;
+            flex: 1;
             height: 55px;
             display: flex;
             align-items: center;
@@ -143,7 +202,7 @@
           }
 
           .apple {
-            width: 36px;
+            flex: 1;
             height: 55px;
             display: flex;
             align-items: center;
@@ -155,6 +214,9 @@
         }
 
         .form {
+          .input-form:nth-child(1) {
+            margin-bottom: 38px;
+          }
           label {
             color: #000;
             font-size: 14px;
@@ -162,25 +224,29 @@
             margin-bottom: 16px;
             display: block;
           }
-
-          input {
+          .input-wrapper {
             border-radius: 9px;
             border: 1px solid #E48700;
             background: #FFF;
-            width: 100%;
             height: 57px;
             outline: none;
-            padding: 0;
+            padding: 1px 11px;
 
-            &#email {
-              margin-bottom: 38px;
-            }
 
-            &::placeholder {
-              color: #808080;
-              font-size: 13px;
-              font-family: Poppins;
-              font-weight: 300;
+            input {
+              width: 100%;
+              border: none;
+              padding: 0;
+              outline: none;
+              background: none;
+              height: 57px;
+
+              &::placeholder {
+                color: #808080;
+                font-size: 13px;
+                font-family: Poppins;
+                font-weight: 300;
+              }
             }
           }
 
@@ -212,6 +278,7 @@
               width: 100%;
               height: 54px;
               border: none;
+              cursor: pointer;
             }
           }
         }
