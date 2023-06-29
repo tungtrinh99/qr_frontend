@@ -6,7 +6,7 @@
         <div class="logo">
           <p>Kiai QR <br><br> Leaderboard</p>
         </div>
-        <div class="login-form">
+        <form @submit.prevent="login" class="login-form">
           <div class="top">
             <div class="title">
               <div class="top-left">Welcome to <span>QR</span></div>
@@ -51,16 +51,16 @@
               >Sign in</button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
 import { useAuthStore } from "@/stores/auth";
-import { computed, getCurrentInstance, reactive } from 'vue'
-// import { useVuelidate } from '@vuelidate/core'
-// import { required, email } from '@vuelidate/validators'
+import { computed, getCurrentInstance, reactive, ref, Ref } from 'vue'
+import { useVuelidate } from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
 const {
   proxy
 } = getCurrentInstance() as any
@@ -69,38 +69,43 @@ const state = reactive({
   email: '',
   password: ''
 })
-// const rules = computed(() => {
-//   return {
-//     email: {
-//       required,
-//       email,
-//       regex: (value: string) => /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(value)
-//     },
-//     password: {
-//       required,
-//       regex: (value: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value)
-//     }
-//   }
-// })
-// const v$ = useVuelidate(rules, state)
-
+const rules = computed(() => {
+  return {
+    email: {
+      required,
+      email,
+      regex: (value: string) => /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(value)
+    },
+    password: {
+      required,
+      // regex: (value: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value)
+    }
+  }
+})
+const v$ = useVuelidate(rules, state)
 const authStore = useAuthStore();
-const login = async () => {
-  // v$.value.$touch();
-  // if (v$.value.$invalid) {
-  //   return;
-  // }
-  // const response = await proxy.$axios.post('/login', {
-  //   email: state.email,
-  //   password: state.password
-  // })
-  // if (!response) {
-  //   proxy.$toast.success(proxy.$t('message.login-success'));
-  //   return;
-  // }
-  // localStorage.setItem('token', response.data.accessToken);
-  // authStore.setToken(response.data.accessToken)
-  proxy.$router.push('/dashboard');
+const router = proxy.$router;
+
+const login = async (e) => {
+  e.preventDefault();
+  v$.value.$touch();
+  if (!v$.value.$invalid) {
+    try {
+      const response = await proxy.$axios.post('/login', {
+        email: state.email,
+        password: state.password
+      })
+      if (!response) {
+        return;
+      }
+      proxy.$toast.success(proxy.$t('message.login-success'))
+      localStorage.setItem('token', response.data.accessToken)
+      authStore.setToken(response.data.accessToken)
+      router.push('/dashboard');
+    } catch (error) {
+      proxy.$toast.error(error);
+    }
+  }
 }
 </script>
 <style lang="scss">

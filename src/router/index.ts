@@ -11,17 +11,16 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
     const authStore = useAuthStore();
     const accessToken = authStore.token;
-    if (
-        !accessToken &&
-        to.name !== 'login'
-    ) {
-        return { name: 'login' }
-    } else {
-        if ( to.name == 'login') {
-            return { name: 'dashboard' }
+    if (!accessToken) {
+        if (to.name !== 'login') {
+            next('/login')
         }
-        next();
+    } else {
+        if (to.name == 'login') {
+            next('/dashboard')
+        }
     }
+    next();
 })
 
 export default router;

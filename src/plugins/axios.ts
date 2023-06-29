@@ -28,13 +28,22 @@ axiosInstance.interceptors.request.use(
         return config;
     },
     function (err) {
-        // if (err?.response.status === 401) {
-        //     const authStore = useAuthStore();
-        //
-        //     authStore.logout();
-        // }
-
         return Promise.reject(err);
+    }
+)
+
+axiosInstance.interceptors.response.use(
+    function (response) {
+        return response;
+    },
+    function (error) {
+        // Handle 401 unauthorized error
+        if (error.response && error.response.status === 401) {
+            // Refresh the token or redirect to login page
+            // Example: redirect to login page
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
     }
 )
 
