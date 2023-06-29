@@ -15,6 +15,9 @@ export default defineConfig(({ command, mode }) => {
         },
         define: {
             'process.env': env
+        },
+        server: {
+            port: 8080
         }
     }
 })
