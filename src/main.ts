@@ -4,7 +4,7 @@ import App from './App.vue'
 import router from "./router"
 import axiosInstance from "@/plugins/axios"
 import moment from 'moment'
-import {useToast} from 'vue-toast-notification'
+import { useToast } from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-sugar.css'
 import i18n from "@/plugins/i18n"
 import { useRoute, useRouter } from "vue-router"
@@ -33,8 +33,8 @@ const globalProperties = {
 }
 
 app.mixin({
-    beforeCreate() {
-        const instance = getCurrentInstance();
+    beforeCreate: function () {
+        const instance: any = getCurrentInstance();
         if (instance) {
             Object.assign(instance.proxy, globalProperties);
         }

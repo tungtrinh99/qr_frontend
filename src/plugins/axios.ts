@@ -1,5 +1,6 @@
-import axios from "axios";
-import { useAuthStore } from "@/stores/auth";
+import axios from "axios"
+import { useAuthStore } from "@/stores/auth"
+import { useToast } from 'vue-toast-notification'
 
 const API_URL = process.env.API_URL;
 
@@ -37,11 +38,12 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     function (error) {
-        // Handle 401 unauthorized error
         if (error.response && error.response.status === 401) {
-            // Refresh the token or redirect to login page
-            // Example: redirect to login page
-            window.location.href = '/login';
+            localStorage.removeItem('token')
+            window.location.href = '/login'
+            useToast({
+                position: 'top-right',
+            }).error('Phiên đăng nhập đã hết hạn');
         }
         return Promise.reject(error);
     }

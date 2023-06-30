@@ -58,7 +58,7 @@
 </template>
 <script lang="ts" setup>
 import { useAuthStore } from "@/stores/auth";
-import { computed, getCurrentInstance, reactive, ref, Ref } from 'vue'
+import { computed, getCurrentInstance, reactive } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 const {
