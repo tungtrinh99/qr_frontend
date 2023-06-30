@@ -18,8 +18,6 @@ app.use(i18n)
 app.use(pinia)
 
 const { t: $t } = i18n.global;
-const route = useRoute();
-const routerInstance = useRouter();
 
 const globalProperties = {
     $moment: moment,
@@ -27,9 +25,7 @@ const globalProperties = {
     $toast: useToast({
         position: 'top-right',
     }),
-    $t: $t,
-    $router: routerInstance,
-    $route: route,
+    $t: $t
 }
 
 app.mixin({

@@ -39,7 +39,7 @@
             <div class="input-form">
               <label for="password">Enter your Password</label>
               <div class="input-wrapper">
-                <input v-model="state.password" class="input-inner" id="password" type="text" placeholder="Password">
+                <input v-model="state.password" class="input-inner" id="password" type="password" placeholder="Password">
               </div>
             </div>
             <div class="forgot-password">Forgot Password</div>
@@ -64,6 +64,9 @@ import { required, email } from '@vuelidate/validators'
 const {
   proxy
 } = getCurrentInstance() as any
+import { useRouter } from 'vue-router'
+const authStore = useAuthStore();
+const router = useRouter();
 
 const state = reactive({
   email: '',
@@ -83,8 +86,7 @@ const rules = computed(() => {
   }
 })
 const v$ = useVuelidate(rules, state)
-const authStore = useAuthStore();
-const router = proxy.$router;
+
 
 const login = async (e) => {
   e.preventDefault();
@@ -101,7 +103,7 @@ const login = async (e) => {
       proxy.$toast.success(proxy.$t('message.login-success'))
       localStorage.setItem('token', response.data.accessToken)
       authStore.setToken(response.data.accessToken)
-      router.push('/dashboard');
+      await router.push('/dashboard');
     } catch (error) {
       proxy.$toast.error(error);
     }
