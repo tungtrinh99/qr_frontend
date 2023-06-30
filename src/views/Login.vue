@@ -117,7 +117,8 @@ const login = async (e) => {
 
   .container {
     .content {
-      padding: 0 22px;
+      padding: 0 22px 16px;
+      height: auto !important;
       .logo {
         p {
           font-style: normal;
