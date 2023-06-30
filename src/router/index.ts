@@ -9,6 +9,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+    console.log(from)
     const authStore = useAuthStore();
     const accessToken = authStore.token;
     if (!accessToken) {
