@@ -35,7 +35,8 @@
       </div>
       <div class="footer">
         <div class="input-message">
-          <input placeholder="Gửi lời chúc đến" v-model="message" class="" type="text">
+          <input placeholder="Gửi lời chúc đến" v-model="message" class="" type="text"
+                 @keyup.enter.prevent="sendMessage">
           <img @click="sendMessage" src="@/assets/svgs/ic_send.svg" alt="">
         </div>
       </div>
@@ -43,18 +44,20 @@
   </div>
 </template>
 <script lang="ts" setup>
-import {computed, ComputedRef, ref, Ref} from "vue";
+import {computed, ComputedRef, ref, Ref, getCurrentInstance} from "vue";
 import {Woman, Message} from "@/types";
 import {useRoute} from "vue-router";
 import axios from "@/plugins/axios";
 import {formatFullname} from "@/utils/format";
-import moment from "moment";
 
 const route = useRoute();
 const woman: Ref<Woman | null> = ref(null);
 const womanId: ComputedRef<string | string[]> = computed(() => route.params.id);
 const messages: Ref<Array<Message>> = ref([]);
 const message: Ref<string> = ref("");
+const {
+  proxy
+} = getCurrentInstance() as any;
 const fetchWoman = async () => {
   try {
     const data = await axios.get(`/women/${womanId.value}`);
@@ -76,7 +79,6 @@ const fetchMessages = async () => {
     console.log(err)
   }
 };
-
 const sendMessage = async () => {
   try {
     const result = await axios.post('/messages', {
@@ -87,8 +89,10 @@ const sendMessage = async () => {
     if (result) {
       messages.value.unshift(result.data);
       message.value = "";
+      proxy.$toast.success(proxy.$t('message.send-message-success'));
     }
-  } catch (err) {
+  }
+  catch (err) {
     console.log(err)
   }
 }
@@ -97,7 +101,7 @@ fetchWoman();
 fetchMessages();
 
 const formatDate = (date: string) => {
-  return moment(date).format('MM/DD/YYYY hh:mm');;
+  return proxy.$moment(date).format('MM/DD/YYYY hh:mm');
 }
 </script>
 <style lang="css" scoped>

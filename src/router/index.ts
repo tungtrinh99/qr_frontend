@@ -1,25 +1,27 @@
-import {createRouter, createWebHistory} from "vue-router";
-import Dashboard from "@/views/Dashboard.vue";
-import Detail from "@/views/Detail.vue";
+import { createRouter, createWebHistory } from "vue-router";
+import { routers } from "@/router/routers";
+import { useAuthStore } from "@/stores/auth";
 
 const router = createRouter({
+    scrollBehavior: () => ({ left: 0, top: 0 }),
     history: createWebHistory(),
-    routes: [
-        {
-            path: '/',
-            redirect: '/dashboard'
-        },
-        {
-            path: '/dashboard',
-            name: "dashboard",
-            component: Dashboard,
-        },
-        {
-            path: '/detail/:id',
-            name: "detail",
-            component: Detail,
-        }
-    ]
+    routes: routers
 });
+
+router.beforeEach(async (to, from, next) => {
+    console.log(from)
+    const authStore = useAuthStore();
+    const accessToken = authStore.token;
+    if (!accessToken) {
+        if (to.name !== 'login') {
+            next('/login')
+        }
+    } else {
+        if (to.name == 'login') {
+            next('/dashboard')
+        }
+    }
+    next();
+})
 
 export default router;

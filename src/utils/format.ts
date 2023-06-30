@@ -2,6 +2,11 @@ const formatFullname = (firstName: string | undefined, lastName: string | undefi
     return firstName + ' ' + lastName;
 }
 
+const formattedAmount = (amount: number): string => {
+    return amount.toLocaleString('ja-JP', { style: 'currency', currency: 'JPY' });
+}
+
 export {
-    formatFullname
+    formatFullname,
+    formattedAmount
 }
